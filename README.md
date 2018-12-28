@@ -1,29 +1,6 @@
-# vue-movies
+#Vue Cinema
 
-## Project setup
-```
-npm install
-```
+Projeto em Vue que lista filmes consumindo a API do The Movie DB.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Trabalho ainda em progresso, o resultado até agora pode ser visualizado em: https://vuecinema.herokuapp.com/
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
