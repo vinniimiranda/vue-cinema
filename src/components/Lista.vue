@@ -1,21 +1,24 @@
 <template>
   <div id="" class="container">
-    <div class="row" style=" ">
-      <div class=" card col s12 l4 m8 offset-l7 offset-m2 input-field">
-          <input id="search" type="search" required style="border-bottom: none !important" v-model="pesquisa" v-on:keyup="ocultaSearch">
+    <div class="row" style=" " >
+      <div class=" card col s12 l5 m8 offset-l6 offset-m2 input-field">
+          <input id="search" type="search" required style="border-bottom: none !important;" v-model="pesquisa" v-on:keyup="ocultaSearch" @blur="ocultaSearch">
           <label class="label-icon" for="search"><i class="material-icons " id="searchIcon">search</i></label>
-          <i class="material-icons" style="vertical-align: middle !important" @click="pesquisa=''">close</i>
-        </div>
+          <i class="material-icons" style="vertical-align: middle !important;" @click="pesquisa=''">close</i>
+      </div>
+      <!-- <div class="card col s12 m8 l10 offset-l1 offset-m2" style="border-radius:5px;">
+        <h4 class="center titulo">Mais populares</h4>  
+      </div>   -->
       <div
         v-for="(movie, i) in searchMovies " 
         :key="i"
         class="card col s12 m8 l5 movie offset-l1 offset-m2"
         style="padding:10px"
       >
-      <div v-if="movie.title == ''"><h4>Nenhum resultado encontrado</h4></div>
+      <div v-if="!movie"><h4>Nenhum resultado encontrado</h4></div>
       
         <div class="card-image waves-effect waves-block waves-light">
-          <img v-if="movie.backdrop_path"
+          <img v-if="movie.backdrop_path"onselectstart="return false;" ondrag="return false" draggable="false"
             class="activator hoverable"
             :alt="movie.title"
             :src="'https://image.tmdb.org/t/p/w500'+movie.backdrop_path"
@@ -26,17 +29,19 @@
             class="activator hoverable"
             :alt="movie.title"
             src="https://www.freeiconspng.com/uploads/no-image-icon-4.png"
-            style="cursor:pointer width:50%margin:auto"
+            style="cursor:pointer ;width:50%;margin:auto"
             @click="detalhes(movie.id)"
           >
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">{{ movie.title }}</span>
+          <span class="card-title activator grey-text text-darken-4" onselectstart="return false;" ondrag="return false;" draggable="false" unselectable="on">{{ movie.title }}</span>
         </div>
         <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">
+          <span class="card-title grey-text text-darken-4"onselectstart="return false;" ondrag="return false" draggable="false" unselectable="on">
             <b>Sinopse:</b>
-            <i class="material-icons right close">close</i>
+            <i class="material-icons right close">close</i><br>
+            
+
           </span>
           <p>{{ movie.overview }}</p>
           <p>
@@ -85,6 +90,8 @@ export default {
       pesquisa: '',
       lang: "pt-BR",
       apiKey: "7b8e1e239f830512fd3d0ada5105a8e7",
+      region: '',
+      ordenacao: 'popularity.desc',
       list: 1,
       movies: [],
       pages: [],
@@ -107,15 +114,17 @@ export default {
     }
   },
   updated(){
-    this.ocultaSearch()
+    
   },
   methods: {
     ocultaSearch(){
       if(this.pesquisa == ''){
         $('#searchIcon').show(0)
+       
       }
       else{
         $('#searchIcon').hide(0)
+        
       }
     },
     converteData(data) {
@@ -133,13 +142,14 @@ export default {
         .get(
           `https://api.themoviedb.org/3/list/${this.list}?api_key=${
             this.apiKey
-          }&language=${this.lang}`
+          }&language=${this.lang}&region=${this.region}`
         )
         .then(resposta => {
           this.movies = resposta.data.item
           
         })
     },
+    
     selecionaPagina(pagina) {
       this.selectedPage = pagina
       $("li").removeClass("active")
@@ -166,8 +176,7 @@ export default {
     },
     listaFilmes(){
 
-    }
-    ,
+    },
     carregaRecentes(pagina) {
       this.selecionaPagina(pagina)
       axios
@@ -176,7 +185,7 @@ export default {
             this.apiKey
           }&language=${
             this.lang
-          }&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pagina}`
+          }&region=${this.region}&sort_by=${this.ordenacao}&include_adult=false&include_video=false&page=${pagina}`
         )
         .then(resposta => {
           
@@ -191,13 +200,14 @@ export default {
 
 <style>
 
-body {
-  background-color: #052b57;
-  background-image: url("../assets/bg2.png");
-  background-attachment:fixed;
+.titulo{ 
+  color: #7c4dff;
+  font-family: Fonte;
+  font-size: 4em;
 }
+
 li.active {
-  background-color: #052b57 !important;
+  background-color: #7c4dff !important;
 }
 
 

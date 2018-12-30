@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <navbar /> -->
-    <!-- <img class="logo " src="./assets/logo.png" /> -->
+    <img class="logo " src="./assets/logo.png" unselectable="on" onselectstart="return false;" ondrag="return false" draggable="false"/>
     <lista class=""/>
   </div>
 </template>
@@ -29,34 +29,38 @@ export default {
   
   
 }
-body{
-  background-color: #052b57;
+
+body {
+  /*052b57*/
+   background-color: #7c4dff; 
+  background-image: url("./assets/bg1.png");
+  background-attachment:fixed;
 }
 @media(max-width: 425px){
   .logo{
     width: 75%;
-    
+    margin-top: 20px;
     margin-bottom: 20px;
   }
 }
 @media(max-width: 768px) {
   .logo{
     width: 45%;
-    
+    margin-top: 20px;
     margin-bottom: 20px;
   }
 }
 @media(max-width: 1024px) {
   .logo{
     width: 35%;
-    
+    margin-top: 20px;
     margin-bottom: 20px;
   }
 }
 @media(min-width: 1025px) {
   .logo{
     width: 15%;
-    
+    margin-top: 40px;
     margin-bottom: 20px;
   }
 }
