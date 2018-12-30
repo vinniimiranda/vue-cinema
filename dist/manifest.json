@@ -1,6 +1,6 @@
 {
-  "name": "Vue Cinema",
-  "short_name": "Vue Cinema",
+  "name": "vue-cinema",
+  "short_name": "vue-cinema",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
