@@ -4,13 +4,13 @@
       <div class=" card col s12 l4 m8 offset-l7 offset-m2 input-field">
           <input id="search" type="search" required style="border-bottom: none !important" v-model="pesquisa" v-on:keyup="ocultaSearch">
           <label class="label-icon" for="search"><i class="material-icons " id="searchIcon">search</i></label>
-          <i class="material-icons" style="vertical-align: middle !important;" @click="pesquisa=''">close</i>
+          <i class="material-icons" style="vertical-align: middle !important" @click="pesquisa=''">close</i>
         </div>
       <div
         v-for="(movie, i) in searchMovies " 
         :key="i"
         class="card col s12 m8 l5 movie offset-l1 offset-m2"
-        style="padding:10px;"
+        style="padding:10px"
       >
       <div v-if="movie.title == ''"><h4>Nenhum resultado encontrado</h4></div>
       
@@ -26,7 +26,7 @@
             class="activator hoverable"
             :alt="movie.title"
             src="https://www.freeiconspng.com/uploads/no-image-icon-4.png"
-            style="cursor:pointer; width:50%;margin:auto"
+            style="cursor:pointer width:50%margin:auto"
             @click="detalhes(movie.id)"
           >
         </div>
@@ -73,9 +73,9 @@
 </template>
 
 <script>
-import axios from "axios";
-import * as moment from 'moment';
-import 'moment/locale/pt-br';
+import axios from "axios"
+import * as moment from 'moment'
+import 'moment/locale/pt-br'
 
 export default {
   name: "Lista",
@@ -89,15 +89,15 @@ export default {
       movies: [],
       pages: [],
       selectedPage: 0
-    };
+    }
   },
   
   created() {
     for (let i = 1; this.pages.length < 5; i++) {
-      this.pages.push(i);
-      //this.carregaRecentes(i);
+      this.pages.push(i)
+      //this.carregaRecentes(i)
     }
-    this.carregaRecentes(1);
+    this.carregaRecentes(1)
   },
   computed: {
     searchMovies: function () {
@@ -126,7 +126,7 @@ export default {
         .get(
           `https://api.themoviedb.org/3/movie/${id}?api_key=7b8e1e239f830512fd3d0ada5105a8e7&language=pt-BR`
         )
-        .then(resposta => console.log(resposta.data));
+        .then(resposta => console.log(resposta.data))
     },
     carregaLista() {
       axios
@@ -136,14 +136,14 @@ export default {
           }&language=${this.lang}`
         )
         .then(resposta => {
-          this.movies = resposta.data.item;
+          this.movies = resposta.data.item
           
-        });
+        })
     },
     selecionaPagina(pagina) {
-      this.selectedPage = pagina;
-      $("li").removeClass("active");
-      $("#pagina" + pagina).addClass("active");
+      this.selectedPage = pagina
+      $("li").removeClass("active")
+      $("#pagina" + pagina).addClass("active")
     },
     proximaPagina(){
       if(this.selectedPage>=this.pages.length) {
@@ -169,7 +169,7 @@ export default {
     }
     ,
     carregaRecentes(pagina) {
-      this.selecionaPagina(pagina);
+      this.selecionaPagina(pagina)
       axios
         .get(
           `https://api.themoviedb.org/3/discover/movie?api_key=${
@@ -180,13 +180,13 @@ export default {
         )
         .then(resposta => {
           
-          this.movies = resposta.data.results;
+          this.movies = resposta.data.results
           //resposta.data.results.forEach(movie => this.movies.push(movie))
           
-        });
+        })
     }
   }
-};
+}
 </script>
 
 <style>
