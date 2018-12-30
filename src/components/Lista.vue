@@ -1,18 +1,32 @@
 <template>
-  <div id="app">
-    <div class="row container">
+  <div id="" class="container">
+    <div class="row" style=" ">
+      <div class=" card col s12 l4 m8 offset-l7 offset-m2 input-field">
+          <input id="search" type="search" required style="border-bottom: none !important" v-model="pesquisa" v-on:keyup="ocultaSearch">
+          <label class="label-icon" for="search"><i class="material-icons " id="searchIcon">search</i></label>
+          <i class="material-icons" style="vertical-align: middle !important;" @click="pesquisa=''">close</i>
+        </div>
       <div
-        v-for="(movie, i) in movies"
+        v-for="(movie, i) in searchMovies " 
         :key="i"
-        class="card col s12 m9 l5 offset-l3 movie"
-        style="padding: 10px; margin: 10px;"
+        class="card col s12 m8 l5 movie offset-l1 offset-m2"
+        style="padding:10px;"
       >
+      <div v-if="movie.title == ''"><h4>Nenhum resultado encontrado</h4></div>
+      
         <div class="card-image waves-effect waves-block waves-light">
-          <img
+          <img v-if="movie.backdrop_path"
             class="activator hoverable"
             :alt="movie.title"
             :src="'http://image.tmdb.org/t/p/w500'+movie.backdrop_path"
             style="cursor:pointer"
+            @click="detalhes(movie.id)"
+          >
+          <img v-else 
+            class="activator hoverable"
+            :alt="movie.title"
+            src="https://www.freeiconspng.com/uploads/no-image-icon-4.png"
+            style="cursor:pointer; width:50%;margin:auto"
             @click="detalhes(movie.id)"
           >
         </div>
@@ -22,34 +36,35 @@
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4">
             <b>Sinopse:</b>
-            <i class="material-icons right">close</i>
+            <i class="material-icons right close">close</i>
           </span>
-          <p>{{ movie.overview }}.</p>
+          <p>{{ movie.overview }}</p>
           <p>
             <b>Lançamento:</b>
-            {{ movie.release_date }}
+            {{ converteData(movie.release_date) }}
           </p>
           <p>
             <b>Nota:</b>
-            {{ movie.vote_average }}
+            {{ movie.vote_average }} 
+             <!-- <i class="material-icons heart" v-bind:style="{verticalAlign: 'middle', background: '-webkit-linear-gradient(180deg,#fff '+ (100 - movie.vote_average * 10)  +'%, red ' +( movie.vote_average * 10) + '%)', webkitBackgroundClip: 'text', webkitTextFillColor: 'transparent' }" >favorite</i> -->
           </p>
         </div>
         <br>
       </div>
     </div>
-    <div class="row container center">
-      <ul class="pagination card" style="padding: 10px; margin: 10px; width: 85%">
-        <li class="disabled">
+    <div class="row center">
+      <ul class="pagination col s12 m8 l10 offset-m2 offset-l1 card" style="padding: 10px">
+        <li  v-bind:class="{ disabled: selectedPage ==1}">
           <a href="#!">
-            <i class="material-icons">chevron_left</i>
+            <i class="material-icons" @click="voltaPagina">chevron_left</i>
           </a>
         </li>
-        <li class="waves-effect" v-for="(page, i) in pages" :key="i" :id="'pagina'+page">
+        <li class="waves-effect" v-for="(page, i) in pages" :key="i" :id="'pagina'+page" v-bind:class="{ active: page ==1}" >
           <a @click="carregaRecentes(page)">{{page}}</a>
         </li>
         <li class="waves-effect">
           <a href="#!">
-            <i class="material-icons">chevron_right</i>
+            <i class="material-icons" @click="proximaPagina">chevron_right</i>
           </a>
         </li>
       </ul>
@@ -59,25 +74,53 @@
 
 <script>
 import axios from "axios";
+import * as moment from 'moment';
+import 'moment/locale/pt-br';
 
 export default {
   name: "Lista",
-  components: {},
+  
   data() {
     return {
+      pesquisa: '',
       lang: "pt-BR",
       apiKey: "7b8e1e239f830512fd3d0ada5105a8e7",
       list: 1,
       movies: [],
-      pages: []
+      pages: [],
+      selectedPage: 0
     };
   },
+  
   created() {
-    for (let i = 1; this.pages.length < 10; i++) this.pages.push(i);
-
+    for (let i = 1; this.pages.length < 5; i++) {
+      this.pages.push(i);
+      //this.carregaRecentes(i);
+    }
     this.carregaRecentes(1);
   },
+  computed: {
+    searchMovies: function () {
+      return this.movies.filter(movie => {
+        return movie.title.match(this.pesquisa)
+      })
+    }
+  },
+  updated(){
+    this.ocultaSearch()
+  },
   methods: {
+    ocultaSearch(){
+      if(this.pesquisa == ''){
+        $('#searchIcon').show(0)
+      }
+      else{
+        $('#searchIcon').hide(0)
+      }
+    },
+    converteData(data) {
+      return moment(data).format('ll')
+    },
     detalhes(id) {
       axios
         .get(
@@ -94,12 +137,39 @@ export default {
         )
         .then(resposta => {
           this.movies = resposta.data.item;
-          this.traduzTitulo();
+          
         });
     },
-    carregaRecentes(pagina) {
+    selecionaPagina(pagina) {
+      this.selectedPage = pagina;
       $("li").removeClass("active");
       $("#pagina" + pagina).addClass("active");
+    },
+    proximaPagina(){
+      if(this.selectedPage>=this.pages.length) {
+        this.pages.push(this.pages.length+1)
+        
+        setTimeout(()=> this.selecionaPagina(this.pages.length), 10) //FAMOSA GAMBS
+      }
+      this.selectedPage++
+      this.carregaRecentes(this.selectedPage)
+    },
+    voltaPagina(){
+      if(this.selectedPage != 1) {
+        this.selectedPage--
+        this.carregaRecentes(this.selectedPage)
+      }
+      else{
+        return false
+      }
+      
+    },
+    listaFilmes(){
+
+    }
+    ,
+    carregaRecentes(pagina) {
+      this.selecionaPagina(pagina);
       axios
         .get(
           `https://api.themoviedb.org/3/discover/movie?api_key=${
@@ -109,9 +179,9 @@ export default {
           }&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pagina}`
         )
         .then(resposta => {
-          console.log(resposta.data);
-
+          
           this.movies = resposta.data.results;
+          //resposta.data.results.forEach(movie => this.movies.push(movie))
           
         });
     }
@@ -120,31 +190,15 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-body {
-  /*background-image: url("https://vignette.wikia.nocookie.net/vsdebating/images/3/3e/Marvel_logo.png/revision/latest?cb=20170724145358") ;*/
 
-  /*-webkit-transform: rotate(30deg);
-  transform: rotate(40deg);*/
+body {
   background-color: #052b57;
 }
-.active {
+li.active {
   background-color: #052b57 !important;
 }
-@media (max-width: 768px) {
-  .movie {
-    height: 400px;
-    position: relative;
-    margin-left: 10% !important;
-  }
-}
+
+
 @media (min-width: 1025px) {
   .movie {
     height: 400px;
@@ -152,14 +206,37 @@ body {
 }
 @media (max-width: 1024px) {
   .movie {
-    height: 330px;
+    height: 400px;
   }
 }
+@media (max-width: 768px) {
+  .movie {
+    height: 400px;
+    
+  }
+}
+
+
 @media (max-width: 425px) {
   .movie {
     height: 330px;
-    position: relative;
-    margin-left: 0px !important;
+    
   }
 }
+  .movie{
+    margin-right: -8%;
+    margin-bottom: -1px;
+  }
+
+  .input-field input[type=search] ~ .mdi-navigation-close, .input-field input[type=search] ~ .material-icons{
+    top: 20% !important;
+  }
+    .input-field input[type=search]:focus+.label-icon {
+    -webkit-transform: none;
+    transform: scale(0);
+    left: 1rem;
+  }
+  .input-field input[type=search]+.label-icon {
+    top: 25% !important;
+  }
 </style>
