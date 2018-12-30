@@ -18,7 +18,7 @@
           <img v-if="movie.backdrop_path"
             class="activator hoverable"
             :alt="movie.title"
-            :src="'http://image.tmdb.org/t/p/w500'+movie.backdrop_path"
+            :src="'https://image.tmdb.org/t/p/w500'+movie.backdrop_path"
             style="cursor:pointer"
             @click="detalhes(movie.id)"
           >
