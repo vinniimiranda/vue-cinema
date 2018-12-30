@@ -193,6 +193,8 @@ export default {
 
 body {
   background-color: #052b57;
+  background-image: url("../assets/bg2.png");
+  background-attachment:fixed;
 }
 li.active {
   background-color: #052b57 !important;
@@ -221,6 +223,12 @@ li.active {
   .movie {
     height: 330px;
     
+  }
+}
+@media only screen and (min-width: 993px) {
+  .row .col.l10 {
+      width: 83.70% !important;
+      
   }
 }
   .movie{
