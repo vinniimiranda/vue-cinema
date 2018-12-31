@@ -8,14 +8,14 @@
       </div>
       <!-- <div class="card col s12 m8 l10 offset-l1 offset-m2" style="border-radius:5px;">
         <h4 class="center titulo">Mais populares</h4>  
-      </div>   -->a
+      </div>   -->
       <div
         v-for="(movie, i) in searchMovies " 
         :key="i"
         class="card col s12 m8 l5 movie offset-l1 offset-m2"
         style="padding:10px"
       >
-      <div v-if="!movie"><h4>Nenhum resultado encontrado</h4></div>
+     
       
         <div class="card-image waves-effect waves-block waves-light">
           <img v-if="movie.backdrop_path" onselectstart="return false;" ondrag="return false" draggable="false"
