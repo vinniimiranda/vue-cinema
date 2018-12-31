@@ -8,7 +8,7 @@
       </div>
       <!-- <div class="card col s12 m8 l10 offset-l1 offset-m2" style="border-radius:5px;">
         <h4 class="center titulo">Mais populares</h4>  
-      </div>   -->
+      </div>   -->a
       <div
         v-for="(movie, i) in searchMovies " 
         :key="i"
@@ -18,7 +18,7 @@
       <div v-if="!movie"><h4>Nenhum resultado encontrado</h4></div>
       
         <div class="card-image waves-effect waves-block waves-light">
-          <img v-if="movie.backdrop_path"onselectstart="return false;" ondrag="return false" draggable="false"
+          <img v-if="movie.backdrop_path" onselectstart="return false;" ondrag="return false" draggable="false"
             class="activator hoverable"
             :alt="movie.title"
             :src="'https://image.tmdb.org/t/p/w500'+movie.backdrop_path"
@@ -34,10 +34,10 @@
           >
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4" onselectstart="return false;" ondrag="return false;" draggable="false" unselectable="on">{{ movie.title }}</span>
+          <span class="card-title activator titulo" onselectstart="return false;" ondrag="return false;" draggable="false" unselectable="on">{{ movie.title }}</span>
         </div>
         <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4"onselectstart="return false;" ondrag="return false" draggable="false" unselectable="on">
+          <span class="card-title " onselectstart="return false;" ondrag="return false" draggable="false" unselectable="on">
             <b>Sinopse:</b>
             <i class="material-icons right close">close</i><br>
             
@@ -202,8 +202,10 @@ export default {
 
 .titulo{ 
   color: #7c4dff;
-  font-family: Fonte;
-  font-size: 4em;
+  font-weight: bold !important;
+}
+.card-content{
+  color: #7c4dff !important;
 }
 
 li.active {

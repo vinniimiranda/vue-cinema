@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "50b6646f8bafa4010e51",
-    "url": "/js/chunk-vendors.91311335.js"
+    "revision": "e7c31e3c4ad2d1044f6c",
+    "url": "/js/chunk-vendors.c5addd92.js"
   },
   {
-    "revision": "3d9ac8d58b70d9ae0ef0",
-    "url": "/js/app.e6e4918d.js"
+    "revision": "9a1cc73ab5a74b7d46c7",
+    "url": "/js/app.d267b390.js"
   },
   {
-    "revision": "7c086a029c00878b080df047bc669fe9",
+    "revision": "a337f0b8464aeee52f8815bccde1f54c",
     "url": "/index.html"
   },
   {
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/fonts/TheHistoriaDemo.ttf"
   },
   {
-    "revision": "3d9ac8d58b70d9ae0ef0",
-    "url": "/css/app.0b7513fd.css"
+    "revision": "9a1cc73ab5a74b7d46c7",
+    "url": "/css/app.4d258ad5.css"
   }
 ];
