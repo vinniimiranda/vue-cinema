@@ -1,7 +1,15 @@
 <template>
   <div id="" class="container">
     <div class="row" style=" " >
-      <div class=" card col s12 l5 m8 offset-l6 offset-m2 input-field">
+      <div class="card col s12 l5 m8  input-field offset-l1 offset-m2 "  style="margin-right: -8%;">
+        <select class="deep-purple accent-2-text" style="border-bottom: none !important;" name="categorias" id="categorias" v-model="categoria" @change="carregaRecentes(selectedPage)">
+          <option value="" selected disabled>Selecione a Categoria</option>
+          <option value="popularity.desc">Populares</option>
+          <!-- <option value="vote_average.desc">Melhores votados</option>
+          <option value="release_date.desc">Data de Lançamento</option> -->
+        </select>
+      </div>
+      <div class=" card col s12 l5 m8 input-field offset-l1 offset-m2">
           <input id="search" type="search" required style="border-bottom: none !important;" v-model="pesquisa" v-on:keyup="ocultaSearch" @blur="ocultaSearch">
           <label class="label-icon" for="search"><i class="material-icons " id="searchIcon">search</i></label>
           <i class="material-icons" style="vertical-align: middle !important;" @click="pesquisa=''">close</i>
@@ -9,6 +17,8 @@
       <!-- <div class="card col s12 m8 l10 offset-l1 offset-m2" style="border-radius:5px;">
         <h4 class="center titulo">Mais populares</h4>  
       </div>   -->
+    </div>
+    <div class="row">
       <div
         v-for="(movie, i) in searchMovies " 
         :key="i"
@@ -90,8 +100,8 @@ export default {
       pesquisa: '',
       lang: "pt-BR",
       apiKey: "7b8e1e239f830512fd3d0ada5105a8e7",
-      region: '',
-      ordenacao: 'popularity.desc',
+      region: 'US',
+      categoria: 'popularity.desc',
       list: 1,
       movies: [],
       pages: [],
@@ -185,7 +195,7 @@ export default {
             this.apiKey
           }&language=${
             this.lang
-          }&region=${this.region}&sort_by=${this.ordenacao}&include_adult=false&include_video=false&page=${pagina}`
+          }&region=${this.region}&sort_by=${this.categoria}&include_adult=false&include_video=false&page=${pagina}`
         )
         .then(resposta => {
           
@@ -199,7 +209,12 @@ export default {
 </script>
 
 <style>
-
+.select-wrapper input.select-dropdown, .dropdown-content li>a, .dropdown-content li>span{
+  border-bottom: none !important;
+  color:#7c4dff;
+  font-weight: bold;
+  
+}
 .titulo{ 
   color: #7c4dff;
   font-weight: bold !important;
