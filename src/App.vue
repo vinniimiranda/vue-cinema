@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <navbar /> -->
     <img class="logo " src="./assets/logo.png" unselectable="on" onselectstart="return false;" ondrag="return false" draggable="false"/>
-    <lista class=""/>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -63,5 +63,9 @@ body {
     margin-top: 40px;
     margin-bottom: 20px;
   }
+  .video{
+  width: 100%;
+  height: 50vh;
+}
 }
 </style>

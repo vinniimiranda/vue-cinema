@@ -63,6 +63,7 @@
             {{ movie.vote_average }} 
              <!-- <i class="material-icons heart" v-bind:style="{verticalAlign: 'middle', background: '-webkit-linear-gradient(180deg,#fff '+ (100 - movie.vote_average * 10)  +'%, red ' +( movie.vote_average * 10) + '%)', webkitBackgroundClip: 'text', webkitTextFillColor: 'transparent' }" >favorite</i> -->
           </p>
+          <p><router-link :to="{name: 'Detalhes', params: {id:movie.id}}"><i class="material-icons" style="vertical-align:middle">add</i> Detalhes</router-link></p>
         </div>
         <br>
       </div>
@@ -115,6 +116,7 @@ export default {
       //this.carregaRecentes(i)
     }
     this.carregaRecentes(1)
+     
   },
   computed: {
     searchMovies: function () {
@@ -124,7 +126,7 @@ export default {
     }
   },
   updated(){
-    
+    $('select').formSelect();
   },
   methods: {
     ocultaSearch(){
