@@ -8,15 +8,7 @@
     <div class="row ">
       
       <div class=" col s12 m8 l8 movie offset-l2 offset-m2 card" style="padding:10px">
-        <!-- <img
-          v-if="movie.poster_path"
-          onselectstart="return false;"
-          ondrag="return false"
-          draggable="false"
-          class
-          :alt="movie.title"
-          :src="'https://image.tmdb.org/t/p/w500'+movie.poster_path"
-        > -->
+        
         <iframe class="video" :src="'https://www.youtube.com/embed/'+youtubeVideoID" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen  autoplay />
         <p>Título: {{movie.title}}</p>
         <p>Orçamento: {{formataValor(movie.budget)}}</p>
@@ -51,22 +43,28 @@ export default {
       movie: {},
       youtubeVideoID: ''
     };
-  },
+  },  
 
   created() {
+    //Chama a função no momento que o componente é criado no DOM.
     this.detalhes();
   },
-
+  updated() {
+    
+  },
   methods: {
+    //Função que converte a data para o Formato "padrão" brasileiro
     converteData(data) {
       return moment(data).format("ll");
     },
+    //Função que converte o valor em decimal, e depois em moeda (Dolar)
     formataValor(valor){
       let valorDecimal = parseInt(valor).toFixed(2).split('.')
       return valorDecimal[0] = "U$ " + valorDecimal[0].split(/(?=(?:...)*$)/).join('.');
 
     },
-    async pesquisaVideo(){ 
+    // Função que busca o videoID na API da
+    pesquisaVideo(){ 
         let config = new Promise((resolve, reject) => {
           gapi.client.setApiKey("AIzaSyCBvW6bnbdyR07s3JmjIA32UeGMwbRjwgI");
           gapi.client.load("youtube", "v3", function() {
@@ -83,9 +81,13 @@ export default {
             order: "relevance"
             
           })
-          .execute(response => this.youtubeVideoID = response.items[0].id.videoId)
+          .execute(response => {
+            this.youtubeVideoID = response.items[0].id.videoId
+            
+          })
         })
     },
+    //Função que faz a requisição na API com os detalhes do filme
     detalhes() {
       axios
         .get(
@@ -99,6 +101,7 @@ export default {
           this.pesquisaVideo()
         });
     },
+    
     
   }
 }
@@ -116,5 +119,7 @@ export default {
 
   }
 }
-
+.playing{
+  transform: scale(2)
+}
 </style>
