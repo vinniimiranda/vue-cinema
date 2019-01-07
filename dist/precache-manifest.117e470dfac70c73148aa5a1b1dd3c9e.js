@@ -8,11 +8,11 @@ self.__precacheManifest = [
     "url": "/js/chunk-vendors.80f42dda.js"
   },
   {
-    "revision": "092356e18978c94cb23e",
-    "url": "/js/app.3f049e91.js"
+    "revision": "3f016990cc6c99e4d816",
+    "url": "/js/app.cd48c6fa.js"
   },
   {
-    "revision": "652e24df78bec234cf56d8a53dcdb8ba",
+    "revision": "65835ba9b6ff8a0f2798643faae9c652",
     "url": "/index.html"
   },
   {
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/fonts/TheHistoriaDemo.ttf"
   },
   {
-    "revision": "092356e18978c94cb23e",
-    "url": "/css/app.6243727c.css"
+    "revision": "3f016990cc6c99e4d816",
+    "url": "/css/app.92794820.css"
   }
 ];

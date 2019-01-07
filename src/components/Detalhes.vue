@@ -38,8 +38,7 @@ export default {
       pesquisa: "",
       nota: 5,
       lang: "pt-BR",
-      apiKey: process.env.apyKeyDB,
-      apiKeyGoogle: process.env.apiKeyGoogle,
+      apiKey: "7b8e1e239f830512fd3d0ada5105a8e7",
       region: "US",
       idMovie: this.$route.params.id,
       movie: {},
@@ -65,7 +64,7 @@ export default {
     // Função que busca o videoID na API da
      pesquisaVideo(){ 
         let config = new Promise((resolve, reject) => {
-          gapi.client.setApiKey(`${apiKeyGoogle}`);
+          gapi.client.setApiKey("AIzaSyCBvW6bnbdyR07s3JmjIA32UeGMwbRjwgI");
           gapi.client.load("youtube", "v3", function() {
             resolve('Api setada')
           })
