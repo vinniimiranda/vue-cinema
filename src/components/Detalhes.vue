@@ -5,25 +5,25 @@
         <router-link :to="{name: 'Lista'}"><i class="material-icons large white-text" style="cursor:pointer"> undo</i></router-link>
       </div>
     </div>
-    <div class="row ">
+    <div class="row " >
       
       <div class=" col s12 m8 l8 movie offset-l2 offset-m2 card" style="padding:10px">
         
-        <iframe class="video" :src="'https://www.youtube.com/embed/'+youtubeVideoID" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen  autoplay />
+        <iframe class="video " :src="'https://www.youtube.com/embed/'+youtubeVideoID" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen  autoplay />
         <p>Título: {{movie.title}}</p>
         <p>Orçamento: {{formataValor(movie.budget)}}</p>
         <p>Rendimento: {{formataValor(movie.revenue)}}</p>
         <p>Data de Lançamento: {{converteData(movie.release_date)}}</p>
-        
+        <!-- <p class="range-field">
+          <label for='nota'>{{nota}}</label>
+          <input type="range" id="nota" min="1" max="10" v-model="nota"  style='width:20%'/>
+          <br>
+        </p> -->
       </div>
     </div>
   </div>
 </template>
-<script>
-import { resolve, reject, async, Promise } from "q";
 
-       
-</script>
 
 <script>
 import axios from "axios";
@@ -36,8 +36,10 @@ export default {
   data() {
     return {
       pesquisa: "",
+      nota: 5,
       lang: "pt-BR",
-      apiKey: "7b8e1e239f830512fd3d0ada5105a8e7",
+      apiKey: process.env.apyKeyDB,
+      apiKeyGoogle: process.env.apiKeyGoogle,
       region: "US",
       idMovie: this.$route.params.id,
       movie: {},
@@ -48,9 +50,6 @@ export default {
   created() {
     //Chama a função no momento que o componente é criado no DOM.
     this.detalhes();
-  },
-  updated() {
-    
   },
   methods: {
     //Função que converte a data para o Formato "padrão" brasileiro
@@ -64,9 +63,9 @@ export default {
 
     },
     // Função que busca o videoID na API da
-    pesquisaVideo(){ 
+     pesquisaVideo(){ 
         let config = new Promise((resolve, reject) => {
-          gapi.client.setApiKey("AIzaSyCBvW6bnbdyR07s3JmjIA32UeGMwbRjwgI");
+          gapi.client.setApiKey(`${apiKeyGoogle}`);
           gapi.client.load("youtube", "v3", function() {
             resolve('Api setada')
           })
@@ -88,7 +87,7 @@ export default {
         })
     },
     //Função que faz a requisição na API com os detalhes do filme
-    detalhes() {
+     detalhes() {
       axios
         .get(
           `https://api.themoviedb.org/3/movie/${this.idMovie}?api_key=${
@@ -99,6 +98,7 @@ export default {
           console.log(resposta.data);
           this.movie = resposta.data;
           this.pesquisaVideo()
+          
         });
     },
     

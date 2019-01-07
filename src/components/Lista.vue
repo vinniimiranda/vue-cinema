@@ -78,7 +78,7 @@
         <li class="waves-effect" v-for="(page, i) in pages" :key="i" :id="'pagina'+page" v-bind:class="{ active: page ==1}" >
           <a @click="carregaRecentes(page)">{{page}}</a>
         </li>
-        <li class="waves-effect">
+        <li class="waves-effect" >
           <a href="#!">
             <i class="material-icons" @click="proximaPagina">chevron_right</i>
           </a>
