@@ -100,7 +100,7 @@ export default {
     return {
       pesquisa: '',
       lang: "pt-BR",
-      apiKey: "7b8e1e239f830512fd3d0ada5105a8e7",
+      apiKey: process.env.apyKeyDB,
       region: 'US',
       categoria: 'popularity.desc',
       list: 1,
@@ -115,6 +115,7 @@ export default {
       this.pages.push(i)
       //this.carregaRecentes(i)
     }
+    console.log(this.apiKey)
     this.carregaRecentes(1)
      
   },
