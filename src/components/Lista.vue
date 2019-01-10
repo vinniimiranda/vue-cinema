@@ -10,7 +10,7 @@
         </select>
       </div>
       <div class=" card col s12 l5 m8 input-field offset-l1 offset-m2">
-          <input id="search" type="search" required style="border-bottom: none !important;" v-model="pesquisa" v-on:keyup="ocultaSearch" @blur="ocultaSearch">
+          <input id="search" type="search" required style="border-bottom: none !important;" v-model="pesquisa" v-on:keyup="buscaFilme" @blur="ocultaSearch">
           <label class="label-icon" for="search"><i class="material-icons " id="searchIcon">search</i></label>
           <i class="material-icons" style="vertical-align: middle !important;" @click="pesquisa=''">close</i>
       </div>
@@ -33,14 +33,14 @@
             :alt="movie.title"
             :src="'https://image.tmdb.org/t/p/w500'+movie.backdrop_path"
             style="cursor:pointer"
-            @click="detalhes(movie.id)"
+           
           >
           <img v-else 
             class="activator hoverable"
             :alt="movie.title"
             src="https://www.freeiconspng.com/uploads/no-image-icon-4.png"
             style="cursor:pointer ;width:50%;margin:auto"
-            @click="detalhes(movie.id)"
+           
           >
         </div>
         <div class="card-content">
@@ -142,13 +142,7 @@ export default {
     converteData(data) {
       return moment(data).format('ll')
     },
-    detalhes(id) {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=7b8e1e239f830512fd3d0ada5105a8e7&language=pt-BR`
-        )
-        .then(resposta => console.log(resposta.data))
-    },
+    
     carregaLista() {
       axios
         .get(
@@ -161,7 +155,11 @@ export default {
           
         })
     },
-    
+    buscaFilme(){
+      axios
+        .get(`https://api.themoviedb.org/3/search/movie?api_key=${this.apiKey}&language=${this.lang}&query=${this.pesquisa}&page=1&include_adult=false`)
+        .then(res => this.movies = res.data.results)
+    },
     selecionaPagina(pagina) {
       this.selectedPage = pagina
       $("li").removeClass("active")

@@ -67,5 +67,14 @@ body {
   width: 100%;
   height: 50vh;
 }
+.logo{
+      transition-duration: 3s;
+      filter: drop-shadow(2px 7px 0px rgba(0,0,0,0.3));
+      
+  }
+  .logo:hover{
+    transform: rotate(3deg)
+  }
+  
 }
 </style>
