@@ -18,18 +18,19 @@
         <h4 class="center titulo">Mais populares</h4>  
       </div>   -->
     </div>
-    <div class="row">
+    <div class="row section scrollspy" id="inicio">
       <div
         v-for="(movie, i) in searchMovies " 
         :key="i"
         class="card col s12 m8 l5 movie offset-l1 offset-m2"
         style="padding:10px"
+        
       >
      
       
         <div class="card-image waves-effect waves-block waves-light">
           <img v-if="movie.backdrop_path" onselectstart="return false;" ondrag="return false" draggable="false"
-            class="activator hoverable"
+            class="activator hoverable "
             :alt="movie.title"
             :src="'https://image.tmdb.org/t/p/w500'+movie.backdrop_path"
             style="cursor:pointer"
@@ -61,7 +62,7 @@
           <p>
             <b>Nota:</b>
             {{ movie.vote_average }} 
-             <!-- <i class="material-icons heart" v-bind:style="{verticalAlign: 'middle', background: '-webkit-linear-gradient(180deg,#fff '+ (100 - movie.vote_average * 10)  +'%, red ' +( movie.vote_average * 10) + '%)', webkitBackgroundClip: 'text', webkitTextFillColor: 'transparent' }" >favorite</i> -->
+            
           </p>
           <p><router-link :to="{name: 'Detalhes', params: {id:movie.id}}"><i class="material-icons" style="vertical-align:middle">add</i> Detalhes</router-link></p>
         </div>
@@ -71,15 +72,15 @@
     <div class="row center">
       <ul class="pagination col s12 m8 l10 offset-m2 offset-l1 card" style="padding: 10px">
         <li  v-bind:class="{ disabled: selectedPage ==1}">
-          <a href="#!">
+          <a href="#inicio">
             <i class="material-icons" @click="voltaPagina">chevron_left</i>
           </a>
         </li>
         <li class="waves-effect" v-for="(page, i) in pages" :key="i" :id="'pagina'+page" v-bind:class="{ active: page ==1}" >
-          <a @click="carregaRecentes(page)">{{page}}</a>
+          <a href="#inicio" @click="carregaRecentes(page)">{{page}}</a>
         </li>
         <li class="waves-effect" >
-          <a href="#!">
+          <a href="#inicio">
             <i class="material-icons" @click="proximaPagina">chevron_right</i>
           </a>
         </li>
@@ -92,6 +93,7 @@
 import axios from "axios"
 import * as moment from 'moment'
 import 'moment/locale/pt-br'
+import ScrollReveal from 'scrollreveal'
 
 export default {
   name: "Lista",
@@ -173,11 +175,13 @@ export default {
       }
       this.selectedPage++
       this.carregaRecentes(this.selectedPage)
+      //$('.container').animatescroll({scrollSpeed:2000,easing:'easeInOutQuint'});
     },
     voltaPagina(){
       if(this.selectedPage != 1) {
         this.selectedPage--
         this.carregaRecentes(this.selectedPage)
+        //$('.container').animatescroll({scrollSpeed:2000,easing:'easeInOutQuint'});
       }
       else{
         return false
@@ -206,25 +210,51 @@ export default {
     }
   }
 }
+
+
 </script>
 
-<style>
+
+<style lang="scss">
+$cor-principal: #7c4dff ;
+.scrollbar {
+    background-color: #F5F5F5;
+    float: left;
+    height: 300px;
+    margin-bottom: 25px;
+    margin-left: 22px;
+    margin-top: 40px;
+    width: 65px;
+    overflow-y: scroll;
+}
+
+.force-overflow {
+    min-height: 450px;
+}
+
+body::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
 .select-wrapper input.select-dropdown, .dropdown-content li>a, .dropdown-content li>span{
   border-bottom: none !important;
-  color:#7c4dff;
+  color: $cor-principal;
   font-weight: bold;
   
 }
 .titulo{ 
-  color: #7c4dff;
+  color: $cor-principal;
   font-weight: bold !important;
 }
 .card-content{
-  color: #7c4dff !important;
+  color: $cor-principal !important;
 }
 
 li.active {
-  background-color: #7c4dff !important;
+  background-color: $cor-principal !important;
 }
 
 
@@ -261,7 +291,15 @@ li.active {
   .movie{
     margin-right: -8%;
     margin-bottom: -1px;
+    padding: 0 !important;
+    border-radius: 30px;
+    border-bottom: none !important;
   }
+
+  img{
+    border-top-left-radius: 30px !important;
+    border-top-right-radius: 30px !important;
+  } 
 
   .input-field input[type=search] ~ .mdi-navigation-close, .input-field input[type=search] ~ .material-icons{
     top: 20% !important;

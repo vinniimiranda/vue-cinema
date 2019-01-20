@@ -44,7 +44,7 @@
           
           <div class="row">
             <a
-              class="btn deep-purple accent-2 white-text "
+              class="btn white-text "
               target="blank"
               :href="'http://www.ysubs.com/movie-imdb/'+movie.imdb_id"
             >Legenda</a>

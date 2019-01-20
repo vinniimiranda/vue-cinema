@@ -23,7 +23,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+$cor-principal: #7c4dff ;
+
 #app {
   text-align: center;
   
@@ -32,9 +35,16 @@ export default {
 
 body {
   /*052b57*/
-   background-color: #7c4dff; 
+  background-color: $cor-principal !important;
   background-image: url("./assets/bg1.png");
   background-attachment:fixed;
+  transition: all .4s;
+}
+.btn{
+  background-color: $cor-principal;
+}
+.btn:hover{
+  background-color: rgba($cor-principal, 0.8);
 }
 @media(max-width: 425px){
   .logo{

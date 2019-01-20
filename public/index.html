@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta name="theme-color" content="#7c4dff">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -9,27 +9,44 @@
     <title>Vue Cinema</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://apis.google.com/js/client.js?onload=init"></script>
 
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+    
+ 
     <!-- <script src="https://momentjs.com/downloads/moment.js"></script> -->
   </head>
-  <body class="deep-purple accent-2">
+  <body>
     <noscript>
       <strong>We're sorry but vue-movies doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+
+
   <script>
   $(document).ready(function(){
    
     M.AutoInit();
+    $('.scrollspy').scrollSpy({
+      throttle: 2,
+      scrollOffset: 2
+    });
   });
   </script>
   <style>
   @font-face {
   font-family: Fonte;
   src: url('./fonts/TheHistoriaDemo.ttf');
-}
+} 
+
 </style>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+  ScrollReveal().reveal('.movie', {
+    delay: 300,
+    duration: 1000,
+    reset: true
+});
+</script>
 </html>
