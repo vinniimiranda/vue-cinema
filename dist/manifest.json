@@ -1,6 +1,6 @@
 {
-  "name": "vue-cinema",
-  "short_name": "vue-cinema",
+  "name": "Vue Cinema",
+  "short_name": "Vue Cinema",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#7c4dff",
   "theme_color": "#7c4dff"
 }
