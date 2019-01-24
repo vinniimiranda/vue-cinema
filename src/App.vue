@@ -3,7 +3,8 @@
     <!-- <navbar /> -->
     <img class="logo " src="./assets/logo.png" unselectable="on" onselectstart="return false;" ondrag="return false" draggable="false"/>
     <h3 class="center">Carregou!</h3>
-    <p>EEEEEEEEEEEEEEEEEEEEEEEEEEEEE</p>
+    <p class="btn">EEEEEEEEEEEEEEEEEEEEEEEEEEEEE</p>
+
     <router-view></router-view>
   </div>
 </template>
