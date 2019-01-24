@@ -17,5 +17,5 @@ export default new Router ({
             component: Detalhes
         }
     ],
-    mode: "history"
+    //mode: "history"
 })
