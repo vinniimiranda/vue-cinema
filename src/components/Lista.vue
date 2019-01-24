@@ -294,6 +294,7 @@ li.active {
     padding: 0 !important;
     border-radius: 30px;
     border-bottom: none !important;
+    filter: drop-shadow(rgba(0, 0, 0, 0.3) 2px 7px 0px);
   }
 
   img{
